@@ -10,12 +10,12 @@ namespace PlatformService.SyncDataServices.Http
 {
     public class HttpCommandDataClient : ICommandDataClient
     {
-        private readonly HttpClient _httpCLient;
+        private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
 
         public HttpCommandDataClient(HttpClient httpClient, IConfiguration configuration)
         {
-            _httpCLient = httpClient;
+            _httpClient = httpClient;
             _configuration = configuration;
         }
 
@@ -27,7 +27,9 @@ namespace PlatformService.SyncDataServices.Http
                "application/json"
            );
 
-           var response = await _httpCLient.PostAsync($"{_configuration["CommandService"]}/api/c/platforms", httpContent);
+           Console.WriteLine($"{_configuration["CommandService"]}");
+
+           var response = await _httpClient.PostAsync($"{_configuration["CommandService"]}", httpContent);
 
            if(response.IsSuccessStatusCode){
                Console.WriteLine("--> Sync POST to CommandService was OK!");
